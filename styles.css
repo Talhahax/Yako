@@ -537,11 +537,11 @@ body.is-scrolling * {
         font-size: 1rem;
         height: 45px;
         border-radius: 50px;
-    }
-
-    /* Hide "View Features" nav link and footer link on mobile */
+    }    /* Hide features related links and buttons on mobile */
     .nav-link[href="#features"],
-    .footer-links a[href="#features"] {
+    .footer-links a[href="#features"],
+    .tech-link[href="#features"],
+    .about-link[href="#features"] {
         display: none;
     }
 }
@@ -584,9 +584,11 @@ body.is-scrolling * {
         height: 75vh;
         border-radius: 0.75rem;
     }
-    
-    /* Hide features section on mobile */
-    .features {
+      /* Hide features section and related buttons on mobile */
+    .features,
+    a[href="#features"],
+    .tech-links a[href="#features"],
+    .about-links a[href="#features"] {
         display: none;
     }
 }
@@ -1025,6 +1027,16 @@ footer {
     justify-content: flex-start;
     gap: 2rem;
     margin-top: 1rem;
+}
+
+/* Desktop styles for footer social links */
+@media (min-width: 769px) {
+    .footer-section .social-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-left: 10%;
+    }
 }
 
 /* Social links in footer */
