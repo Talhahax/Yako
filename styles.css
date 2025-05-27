@@ -538,6 +538,12 @@ body.is-scrolling * {
         height: 45px;
         border-radius: 50px;
     }
+
+    /* Hide "View Features" nav link and footer link on mobile */
+    .nav-link[href="#features"],
+    .footer-links a[href="#features"] {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {
@@ -579,12 +585,14 @@ body.is-scrolling * {
         border-radius: 0.75rem;
     }
     
-    /* Hide the features section on mobile */
+    /* Hide features section on mobile */
     .features {
         display: none;
     }
+}
     
-    /* Redesigned chat input for mobile */
+    @media (max-width: 480px) {
+    /* Redesigned chat input for mobile only */
     .chat-input {
         padding: 0.8rem;
         flex-direction: column;
@@ -620,6 +628,7 @@ body.is-scrolling * {
         align-items: center;
         justify-content: center;
     }
+}
     
     .feature-card {
         padding: 1.25rem;
@@ -802,7 +811,8 @@ footer {
     
     .social-links {
         justify-content: center;
-        margin-top: 1rem;
+        margin: 1rem auto;
+        width: 100%;
     }
     
     .technology {
@@ -813,6 +823,7 @@ footer {
         font-size: 1rem;
         padding: 0 1rem;
     }
+
 }
 
 /* Message content styling */
@@ -888,6 +899,7 @@ footer {
     justify-content: center;
     gap: 2rem;
     margin-top: 2rem;
+    flex-wrap: wrap;
 }
 
 .nav-link {
@@ -897,6 +909,7 @@ footer {
     padding: 0.5rem 1rem;
     border-radius: 20px;
     transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
 }
 
 .nav-link:hover {
@@ -959,6 +972,15 @@ footer {
         flex-direction: column;
         gap: 1rem;
         align-items: center;
+        width: 100%;
+    }
+    
+    .nav-link {
+        width: 80%;
+        text-align: center;
+        display: block;
+        padding: 0.8rem 1rem;
+        background-color: var(--light-gray);
     }
     
     .about-content p {
@@ -1003,6 +1025,11 @@ footer {
     justify-content: flex-start;
     gap: 2rem;
     margin-top: 1rem;
+}
+
+/* Social links in footer */
+.footer-section .social-links {
+    justify-content: center;
 }
 
 .social-link {
@@ -1315,4 +1342,35 @@ footer {
 /* Remove visually-hidden class for Partners section */
 .partners.visually-hidden {
     display: block;
+}
+
+/* Feature link styling (similar to use-case-link) */
+.feature-link {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.feature-link:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Hide mobile-only elements by default */
+.mobile-only {
+    display: none;
+}
+
+/* Show mobile-only elements on small screens */
+@media (max-width: 768px) {
+    .mobile-only {
+        display: inline-block;
+    }
 }
