@@ -565,6 +565,7 @@ body.is-scrolling * {
     
     .chat-messages {
         padding: 0.75rem;
+        height: calc(100% - 120px); /* Adjusted for the new input layout */
     }
     
     .message {
@@ -578,22 +579,46 @@ body.is-scrolling * {
         border-radius: 0.75rem;
     }
     
+    /* Hide the features section on mobile */
+    .features {
+        display: none;
+    }
+    
+    /* Redesigned chat input for mobile */
     .chat-input {
-        padding: 0.6rem;
+        padding: 0.8rem;
+        flex-direction: column;
+        height: auto;
+        gap: 0.8rem;
     }
     
     .chat-input input {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.95rem;
-        height: 40px;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+        width: 100%;
+        border-radius: 20px;
+        height: 50px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: all 0.2s ease;
+    }
+    
+    .chat-input input:focus {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     }
     
     .chat-input button {
-        padding: 0.6rem 0.8rem;
-        min-width: 60px;
-        font-size: 0.95rem;
-        height: 40px;
+        width: auto;
+        min-width: 100px;
+        margin: 0 auto;
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+        height: 45px;
         border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .feature-card {
