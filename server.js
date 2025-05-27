@@ -14,6 +14,17 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname)));
 
+// Serve robots.txt and sitemap.xml with correct content type
+app.get('/robots.txt', (req, res) => {
+    res.type('text/plain');
+    res.sendFile(path.join(__dirname, 'robots.txt'));
+});
+
+app.get('/sitemap.xml', (req, res) => {
+    res.type('application/xml');
+    res.sendFile(path.join(__dirname, 'sitemap.xml'));
+});
+
 // API configuration
 // IMPORTANT: Replace this with your actual API key from Groq
 const GROQ_API_KEY = process.env.GROQ_API_KEY || "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"; 

@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Yako - Your Smart AI Companion</title>
+    <meta name="description" content="Yako is your smart AI companion that helps you chat smarter with real-time AI responses. Available 24/7 for intelligent conversations.">
+    <meta name="keywords" content="AI chatbot, AI companion, smart assistant, Yako, AI conversations">
+    <meta name="author" content="Talha">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yako-ai.vercel.app/">
+    <meta property="og:title" content="Yako - Your Smart AI Companion">
+    <meta property="og:description" content="Chat smarter with Yako, your intelligent AI assistant available 24/7.">
+    <meta property="og:image" content="https://yako-ai.vercel.app/favicon.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yako-ai.vercel.app/">
+    <meta property="twitter:title" content="Yako - Your Smart AI Companion">
+    <meta property="twitter:description" content="Chat smarter with Yako, your intelligent AI assistant available 24/7.">
+    <meta property="twitter:image" content="https://yako-ai.vercel.app/favicon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yako-ai.vercel.app/">
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,60 +33,67 @@
     <link rel="icon" href="favicon.png">
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1 class="logo">Yako</h1>
-            <h2 class="tagline">Your Smart AI Companion</h2>
-            <p class="description">Yako helps you chat smarter with real-time AI responses.</p>
-            <a href="#chat-section" class="cta-button">Start Chatting</a>
-        </div>
-    </section>
+    <header>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <h1 class="logo">Yako</h1>
+                <h2 class="tagline">Your Smart AI Companion</h2>
+                <p class="description">Yako helps you chat smarter with real-time AI responses.</p>
+                <a href="#chat-section" class="cta-button">Start Chatting</a>
+            </div>
+        </section>
+    </header>
 
-    <!-- Chat Section hehe -->
-    <section class="chat" id="chat-section">
-        <div class="container">
-            <div class="chat-container">
-                <div class="chat-messages" id="chat-messages">
-                    <div class="message bot">
-                        <p>👋 Hello! I'm Yako. How can I help you today?</p>
+    <main>
+        <!-- Chat Section -->
+        <section class="chat" id="chat-section">
+            <div class="container">
+                <h2 class="section-title visually-hidden">Chat with Yako</h2>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot">
+                            <p>👋 Hello! I'm Yako. How can I help you today?</p>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <label for="user-input" class="visually-hidden">Type your message</label>
+                        <input type="text" id="user-input" placeholder="Type your message here..." />
+                        <button onclick="sendMessage()" aria-label="Send message">Send</button>
                     </div>
                 </div>
-                <div class="chat-input">
-                    <input type="text" id="user-input" placeholder="Type your message here..." />
-                    <button onclick="sendMessage()">Send</button>
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Features Section -->
-    <section class="features">
-        <div class="container">
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <i class="fas fa-brain"></i>
-                    <h3>Smart AI Conversations</h3>
-                    <p>Engage in intelligent conversations powered by advanced AI technology.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-bolt"></i>
-                    <h3>Fast and Contextual Replies</h3>
-                    <p>Get instant, context-aware responses that understand your needs.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-clock"></i>
-                    <h3>Available 24/7</h3>
-                    <p>Access Yako anytime, anywhere. Always ready to help.</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Lightweight and Private</h3>
-                    <p>Fast, efficient, and respectful of your privacy.</p>
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <h2 class="section-title visually-hidden">Features</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>Smart AI Conversations</h3>
+                        <p>Engage in intelligent conversations powered by advanced AI technology.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Fast and Contextual Replies</h3>
+                        <p>Get instant, context-aware responses that understand your needs.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Available 24/7</h3>
+                        <p>Access Yako anytime, anywhere. Always ready to help.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Lightweight and Private</h3>
+                        <p>Fast, efficient, and respectful of your privacy.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer>
@@ -77,6 +105,27 @@
             </div>
         </div>
     </footer>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Yako",
+        "description": "Your Smart AI Companion that helps you chat smarter with real-time AI responses",
+        "applicationCategory": "ChatBot",
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Talha"
+        }
+    }
+    </script>
 
     <script src="script.js"></script>
 </body>
