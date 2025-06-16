@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fetch = require('node-fetch');
+const fs = require('fs');
+const natural = require('natural');
 
 // Load environment variables
 require('dotenv').config();
@@ -66,6 +68,33 @@ function getSmartFallback(message = '') {
     } else {
         return fallbackResponses[Math.floor(Math.random() * fallbackResponses.length)];
     }
+}
+
+// Load knowledge base
+let knowledgeBase = [];
+try {
+    knowledgeBase = JSON.parse(fs.readFileSync(path.join(__dirname, 'knowledge_base.json'), 'utf8'));
+    console.log(`Loaded knowledge base with ${knowledgeBase.length} entries.`);
+} catch (e) {
+    console.warn('Could not load knowledge base:', e.message);
+}
+
+// Prepare TF-IDF for RAG
+const TfIdf = natural.TfIdf;
+const tfidf = new TfIdf();
+knowledgeBase.forEach((entry, idx) => {
+    tfidf.addDocument(entry.question + ' ' + entry.answer, idx.toString());
+});
+
+function retrieveRelevantContext(query, topK = 1) {
+    if (!knowledgeBase.length) return [];
+    const scores = [];
+    tfidf.tfidfs(query, (i, measure) => {
+        scores.push({ idx: i, score: measure });
+    });
+    scores.sort((a, b) => b.score - a.score);
+    const top = scores.slice(0, topK).filter(s => s.score > 0);
+    return top.map(s => knowledgeBase[s.idx].answer);
 }
 
 // Health check endpoint
@@ -160,25 +189,35 @@ async function startServer() {
                 else if (GROQ_API_KEY) {
                     // If no rule matches and we have an API key, use Groq
                     console.log('Using Groq API for response...');
-                    
+
+                    // RAG: Retrieve relevant context
+                    const ragContexts = retrieveRelevantContext(message, 1);
+                    let contextString = '';
+                    if (ragContexts.length > 0) {
+                        contextString = `Relevant info: ${ragContexts.join('\n')}`;
+                    }
+
                     // Prepare the conversation history for Groq
                     const messages = [
                         { role: 'system', content: SYSTEM_MESSAGE },
-                        // Include up to 10 recent messages for context
-                        ...history.slice(-10)
                     ];
-                    
+                    if (contextString) {
+                        messages.push({ role: 'system', content: contextString });
+                    }
+                    // Include up to 10 recent messages for context
+                    messages.push(...history.slice(-10));
+
                     // Call Groq API
                     console.log('Making request to Groq API...');
                     console.log('API key starts with:', GROQ_API_KEY.substring(0, 3) + '...');
-                    
+
                     const requestBody = {
                         model: 'llama3-8b-8192',  // Using Llama 3 8B model, fast and efficient
                         messages: messages,
                         max_tokens: 500,  // Increased token limit for more complete responses
                         temperature: 0.7
                     };
-                    
+
                     console.log('Request payload:', JSON.stringify(requestBody, null, 2));
                     
                     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
