@@ -14,11 +14,15 @@
       "use": "@vercel/static"
     },
     {
-      "src": "*.js",
+      "src": "script.js",
       "use": "@vercel/static"
     },
     {
       "src": "*.png",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.json",
       "use": "@vercel/static"
     }
   ],
@@ -32,7 +36,7 @@
       "dest": "/index.html"
     },
     {
-      "src": "/(.+)",
+      "src": "/(.*)",
       "dest": "/$1"
     }
   ]

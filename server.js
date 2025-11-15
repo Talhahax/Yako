@@ -107,9 +107,9 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// Start server
-async function startServer() {
-    console.log('🤖 Starting AI Chatbot Server...');
+// Initialize routes
+function setupRoutes() {
+    console.log('🤖 Setting up routes...');
     
     // Chat endpoint
     app.post('/api/chat', async (req, res) => {
@@ -330,7 +330,19 @@ async function startServer() {
         }
     });
 
-    // Start the server
+}
+
+// Setup all routes
+setupRoutes();
+
+// For Vercel: export the app as a serverless function
+// For local: start the Express server
+if (process.env.VERCEL) {
+    // Running on Vercel - export the app
+    console.log('🚀 Running on Vercel');
+    module.exports = app;
+} else {
+    // Running locally - start the server
     app.listen(PORT, '0.0.0.0', () => {
         console.log(`🚀 Server running on http://localhost:${PORT}`);
         
@@ -353,12 +365,10 @@ async function startServer() {
         console.log('✅ Chatbot is ready!');
         console.log('💬 Using Groq API with rule-based fallback');
     });
+    
+    // Handle graceful shutdown
+    process.on('SIGTERM', () => {
+        console.log('Server shutting down gracefully...');
+        process.exit(0);
+    });
 }
-
-// Handle graceful shutdown
-process.on('SIGTERM', () => {
-    console.log('Server shutting down gracefully...');
-    process.exit(0);
-});
-
-startServer();
