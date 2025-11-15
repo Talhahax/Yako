@@ -28,13 +28,15 @@ app.get('/sitemap.xml', (req, res) => {
 });
 
 // API configuration
-// IMPORTANT: Replace this with your actual API key from Groq
-const GROQ_API_KEY = process.env.GROQ_API_KEY || "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"; 
+// IMPORTANT: Set your Groq API key in the .env file
+const GROQ_API_KEY = process.env.GROQ_API_KEY; 
 const SYSTEM_MESSAGE = process.env.SYSTEM_MESSAGE || "You are Yako, a helpful and friendly AI assistant powered by Groq's Llama 3 model. Use appropriate emojis in your responses to make them more engaging and expressive. For example, use 👋 for greetings, 🤔 for thinking, 💡 for ideas, ✅ for confirmations, etc.";
 
 console.log(`System message: ${SYSTEM_MESSAGE}`);
-console.log(`Groq API Key available: ${GROQ_API_KEY ? 'Yes' : 'No (using placeholder)'}`);
-console.log('IMPORTANT: Replace the placeholder API key in server.js with your actual Groq API key');
+console.log(`Groq API Key available: ${GROQ_API_KEY ? 'Yes' : 'No (using fallback responses)'}`);
+if (!GROQ_API_KEY) {
+    console.log('⚠️  No API key found. Please set GROQ_API_KEY in your .env file to use AI responses.');
+}
 
 // Store conversation history
 const conversationHistory = new Map();
@@ -212,7 +214,7 @@ async function startServer() {
                     console.log('API key starts with:', GROQ_API_KEY.substring(0, 3) + '...');
 
                     const requestBody = {
-                        model: 'llama3-8b-8192',  // Using Llama 3 8B model, fast and efficient
+                        model: 'llama-3.3-70b-versatile',  // Using Llama 3.3 70B model
                         messages: messages,
                         max_tokens: 500,  // Increased token limit for more complete responses
                         temperature: 0.7
@@ -271,6 +273,7 @@ async function startServer() {
                 
             } catch (error) {
                 console.error('❌ Error generating response:', error.message);
+                console.error('Full error:', error);
                 // Use fallback if all methods fail
                 botResponse = getSmartFallback(message);
             }
